@@ -1,6 +1,7 @@
 description = 'An Android library to display OpenStreetMap views.'
 apply plugin: 'com.android.library'
 apply plugin: "maven-publish"
+apply plugin: 'org.jetbrains.kotlin.android'
 
 
 group = project.property("pom.groupId")
@@ -13,6 +14,7 @@ android {
 
     defaultConfig{
         targetSdkVersion  findProperty('android.targetSdkVersion').toInteger()
+        minSdkVersion Integer.parseInt(project.property('android.minSdkVersion'))
     }
 
     testOptions {
@@ -32,14 +34,18 @@ android {
     lint {
         abortOnError false
     }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
     gradle.projectsEvaluated {
         preBuild.dependsOn(copyFiles)
     }
 }
 
 dependencies {
-    testImplementation "org.junit.vintage:junit-vintage-engine:${project.property('junit.version')}"
-    testImplementation "org.robolectric:robolectric:${project.property('robolectric.version')}"
+    implementation libs.androidx.core.ktx
+    testImplementation libs.junit.vintage.engine
+    testImplementation libs.robolectric
 }
 
 tasks.register('cleanCustomFiles', Delete) {

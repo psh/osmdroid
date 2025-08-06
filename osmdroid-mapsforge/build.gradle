@@ -1,6 +1,7 @@
 description = "An Android library to display OpenStreetMap views using Mapsforge. May use non ASF licensed dependencies"
 apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
+apply plugin: 'org.jetbrains.kotlin.android'
 
 group = project.property("pom.groupId")
 version =  project.property("pom.version")
@@ -11,7 +12,7 @@ android {
 
     defaultConfig {
         // mapsforge 0.8.0 has minSdk 10
-        minSdkVersion 10
+        minSdkVersion Integer.parseInt(project.property('android.minSdkVersion'))
     }
     buildTypes {
         release {
@@ -25,15 +26,19 @@ android {
             withJavadocJar()
         }
     }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
-    testImplementation "org.junit.vintage:junit-vintage-engine:${project.property('junit.version')}"
+    implementation libs.androidx.core.ktx
+    testImplementation libs.junit.vintage.engine
 
     //Mapsforge rendering and database support, which is LGPL
-    api 'org.mapsforge:mapsforge-map-android:0.21.0'
-    api 'org.mapsforge:mapsforge-map:0.21.0'
-    api 'org.mapsforge:mapsforge-themes:0.21.0'
+    api libs.mapsforge.map.android
+    api libs.mapsforge.map
+    api libs.mapsforge.themes
 
     //osmdroid which is ASF licensed
     api  project(':osmdroid-android' )

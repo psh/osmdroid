@@ -2,6 +2,7 @@ description = 'Shapefile support for osmdroid'
 
 apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
+apply plugin: 'org.jetbrains.kotlin.android'
 
 group = project.property("pom.groupId")
 version =  project.property("pom.version")
@@ -10,7 +11,7 @@ android {
     namespace "org.osmdroid.shape"
     compileSdk findProperty('android.compileSdkVersion').toInteger()
     defaultConfig {
-        minSdkVersion Integer.parseInt(project.property('android-minSdkForSupportLib.version'))
+        minSdkVersion Integer.parseInt(project.property('android.minSdkVersion'))
     }
 
     buildTypes {
@@ -28,13 +29,17 @@ android {
     lint {
         abortOnError false
     }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
    
-    testImplementation 'org.junit.vintage:junit-vintage-engine:5.10.2'
+    implementation libs.androidx.core.ktx
+    testImplementation libs.junit.vintage.engine.v5102
     api  project(':osmdroid-android')
-    api 'com.github.spyhunter99:jdbf:2.2.4'
+    api libs.jdbf
 
 }
 

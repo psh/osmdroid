@@ -2,6 +2,7 @@ description = 'Simple osmdroid based map application'
 
 apply plugin: 'com.android.application'
 apply from: "$rootDir/gradle/android-signing.gradle"
+apply plugin: 'org.jetbrains.kotlin.android'
 
 group = project.property("pom.groupId")
 version =  project.property("pom.version")
@@ -15,13 +16,12 @@ android {
                  project.name.toString().toLowerCase().replaceAll("[-]", ".")
                          .replaceAll("[^a-zA-Z0-9\\.]", "")
 
-         minSdkVersion Integer.parseInt(project.property('android-minSdkForSupportLib.version'))
          multiDexEnabled = true
          compileSdk(project.hasProperty('android.compileSdkVersion')
                  ? Integer.parseInt(project.property('android.compileSdkVersion')) : 34)
 
 
-         minSdkVersion(14)
+         minSdkVersion Integer.parseInt(project.property('android.minSdkVersion'))
 
 
          targetSdkVersion(project.hasProperty('android.targetSdkVersion')
@@ -40,12 +40,16 @@ android {
         //  baseline = file("lint-baseline.xml")
         // commented out because pull request test on github caused build fail
     }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
 //    implementation "androidx.appcompat:appcompat:1.7.0"
     implementation project(':osmdroid-android')
-    implementation 'androidx.preference:preference:1.2.1'
+    implementation libs.androidx.preference
+    implementation libs.androidx.core.ktx
 }
 
 

@@ -1,6 +1,7 @@
 description = 'OSMdroid Android WMS Client'
 apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
+apply plugin: 'org.jetbrains.kotlin.android'
 
 group = project.property("pom.groupId")
 version =  project.property("pom.version")
@@ -29,12 +30,16 @@ android {
     lint {
         abortOnError false
     }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
     //
     api  project(':osmdroid-android')
-    testImplementation "org.junit.vintage:junit-vintage-engine:${project.property('junit.version')}"
+    implementation libs.androidx.core.ktx
+    testImplementation libs.junit.vintage.engine
 }
 
 

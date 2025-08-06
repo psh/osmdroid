@@ -27,12 +27,12 @@ tasks.withType(Javadoc) {
 }
 
 dependencies {
-    implementation 'org.apache.httpcomponents:httpmime:4.5.14'
-    implementation 'org.apache.james:apache-mime4j:0.8.11'
-    implementation 'org.xerial:sqlite-jdbc:3.46.0.0'
+    implementation libs.httpmime
+    implementation libs.apache.mime4j
+    implementation libs.sqlite.jdbc.v35030
 
 
-    testImplementation "org.junit.vintage:junit-vintage-engine:${project.property('junit.version')}"
+    testImplementation libs.junit.vintage.engine
 }
 
 //copy the instrumentation tests from the maven osmdroid-android-it src folder
@@ -63,7 +63,7 @@ tasks.register('preBuildTask3', Copy) {
         exclude 'IMyLocationOverlay.java'
         exclude 'Polyline.java'
         exclude 'Marker.java'
-        exclude 'IProjection.java'
+        //exclude 'IProjection.java'
     }
     into "src/main/java/org/osmdroid/api/"
 
