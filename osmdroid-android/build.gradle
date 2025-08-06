@@ -15,10 +15,7 @@ android {
         targetSdkVersion  findProperty('android.targetSdkVersion').toInteger()
     }
 
-    lintOptions {
-        abortOnError false
-    }
-	testOptions { 
+    testOptions {
        unitTests.returnDefaultValues = true
    }
     buildTypes {
@@ -31,6 +28,9 @@ android {
             withSourcesJar()
             withJavadocJar()
         }
+    }
+    lint {
+        abortOnError false
     }
     gradle.projectsEvaluated {
         preBuild.dependsOn(copyFiles)

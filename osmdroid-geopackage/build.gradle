@@ -27,8 +27,9 @@ android {
         }
     }
     packagingOptions {
-        excludes += "DebugProbesKt.bin"
-        excludes += "com/j256/ormlite/core/LICENSE.txt"
+        resources {
+            excludes += ['DebugProbesKt.bin', 'com/j256/ormlite/core/LICENSE.txt']
+        }
     }
 }
 
